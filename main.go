@@ -1,11 +1,10 @@
 package main
 
 import "github.com/gin-gonic/gin"
+import "github.com/itsmaheshkariya/gin-gorm-rest/routes"
 
 func main() {
 	router:= gin.New()
-	router.GET("/", func(c *gin.Context){
-		c.String(200, "Hello World")
-	})
+	routes.UserRoute(router)
 	router.Run(":9004")
 }
