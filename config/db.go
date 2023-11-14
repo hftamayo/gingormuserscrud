@@ -6,10 +6,10 @@ import (
 	"gorm.io/gorm"
 )
 
-var DB *form.DB
+var DB *gorm.DB
 
 func Connect() {
-	db, err := gorm.Open(postgres.Open("postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable"), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open("postgres://gobank:gobank@localhost:5432/postgres?sslmode=disable"), &gorm.Config{})
 	if err != nil {
 	}
 	db.AutoMigrate(&models.User{})
