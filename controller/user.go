@@ -2,8 +2,8 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/itsmaheshkariya/gin-gorm-rest/models"
-	"github.com/itsmaheshkariya/gin-gorm-rest/config"
+	"github.com/hftamayo/gingormrest/models"
+	"github.com/hftamayo/gingormrest/config"
 )
 
 

@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/itsmaheshkariya/gin-gorm-rest/models"
+	"github.com/hftamayo/gingormrest/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
