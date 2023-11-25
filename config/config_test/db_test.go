@@ -4,22 +4,29 @@ import (
 	"testing"
 
 	"github.com/hftamayo/gingormrest/config"
-	sqlmock "github.com/stretchr/testify/mock"
+	"github.com/DATA-DOG/go-sqlmock"
 )
 
 func TestConnect(t *testing.T) {
 	// Create a mock database object
-	dbMock := sqlmock.Open(`postgres`)
+	db, mock, err := sqlmock.New()
+	if err != nil {
+		t.Fatalf("Error creating mock: %s", err)
+	}
 
-	// Set expectations for the mock database object
-	dbMock.Expect().Ping().WillReturn(nil)
+	defer db.Close()
 
-	// Replace the global DB variable with the mock database object
-	config.DB = dbMock
+	//set expectations for the mock db object
+	mock.ExpectPing()
 
-	// Call the Connect function
+	//replace the global DB variable with the mock database object
+	config.DB = db
+
 	config.Connect()
 
-	// Verify that the mock database object was called
-	dbMock.AssertExpectations(t)
+	//ensure all expectations were met
+	if err := mock.ExpectationsWereMet(); err != nil {
+		t.Errorf("Unexpected error: %s", err)
+	}
 }
+
