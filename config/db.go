@@ -13,9 +13,13 @@ import (
 var DB *gorm.DB
 
 func Connect() (*gorm.DB, error) {
-	databaseURL := os.Getenv("DATABASE_URL")
+	user := os.Getenv("DATABASE_USER")
+	password := os.Getenv("DATABASE_PASSWORD")
 	databaseName := os.Getenv("DATABASE_NAME")
-	connectionString := fmt.Sprintf(databaseURL, databaseName)
+	host := os.Getenv("DATABASE_HOST")
+	port := os.Getenv("DATABASE_PORT")
+
+	connectionString := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", user, password, host, port, databaseName)
 	db, err := gorm.Open(postgres.Open(connectionString), &gorm.Config{})
 	//db, err := gorm.Open(postgres.Open("postgres://gobank:gobank@localhost:5432/postgres?sslmode=disable"), &gorm.Config{})
 	if err != nil {
