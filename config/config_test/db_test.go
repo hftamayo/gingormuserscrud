@@ -2,9 +2,10 @@ package config_test
 
 import (
 	"testing"
-
 	"github.com/hftamayo/gingormrest/config"
 	"github.com/DATA-DOG/go-sqlmock"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 func TestConnect(t *testing.T) {
@@ -16,11 +17,15 @@ func TestConnect(t *testing.T) {
 
 	defer db.Close()
 
-	//set expectations for the mock db object
-	mock.ExpectPing()
+	//wrap mock database in gorm.DB object
+	dialect := postgres.New(postgres.Config{Conn: db})
+	gdb, err := gorm.Open(dialect, &gorm.Config{})
+	if err != nil {
+		t.Errorf("Failed to connect to the database: %v", err)
+	}
 
 	//replace the global DB variable with the mock database object
-	config.DB = db
+	config.DB = gdb
 
 	config.Connect()
 
