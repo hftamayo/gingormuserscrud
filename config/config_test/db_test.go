@@ -19,7 +19,7 @@ func TestConnect(t *testing.T) {
 
 	//wrap mock database in gorm.DB object
 	dialect := postgres.New(postgres.Config{Conn: db})
-	gdb, err := gorm.Open(dialect, &gorm.Config{SkipDefaultConfig: true})
+	gdb, err := gorm.Open(dialect, &gorm.Config{})
 	if err != nil {
 		t.Errorf("Failed to connect to the database: %v", err)
 	}
